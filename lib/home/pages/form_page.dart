@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_4/login/widgets/custom_button.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -73,12 +74,125 @@ class _FormPageState extends State<FormPage> {
   }
 
 
+  Widget buildField({
+    required String label,
+    required TextEditingController controller,
+    int maxLines = 1,
+    bool requiredField = true,
+  }) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15),
+      child: TextFormField(
+        controller: controller,
+        maxLines: maxLines,
+        validator: (value) {
+          if (!requiredField) return null;
+
+          if (value == null || value.trim().isEmpty){
+            return "Required";
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12)
+          )
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    titleController.dispose();
+    authorController.dispose();
+    descriptionController.dispose();
+    poemController.dispose();
+    imageController.dispose();
+    videoController.dispose();
+    categoryController.dispose();
+    tagsController.dispose();
+    super.dispose();
+  }
+
+
 
 
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Upload Poem"),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(18),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              buildField(
+                label: "Poem Name", 
+                controller: nameController,
+              ),
+
+              buildField(
+                label: "Title", 
+                controller: titleController,
+              ),
+
+              buildField(
+                label: "Author Name", 
+                controller: authorController,
+              ),
+
+              buildField(
+                label: "Description", 
+                controller: descriptionController,
+                maxLines: 3,
+              ),
+
+              buildField(
+                label: "Poem", 
+                controller: poemController,
+                maxLines: 8,
+              ),
+
+              buildField(
+                label: "Image URL", 
+                controller: imageController,
+              ),
+
+              buildField(
+                label: "Video URL(Optional)", 
+                controller: videoController,
+                requiredField: false,
+              ),
+
+              buildField(
+                label: "Category",
+                controller: categoryController,
+              ),
+
+              buildField(
+                label: "Tags (comma separated)",
+                controller: tagsController,
+              ),
+
+              SizedBox(height: 20,),
+
+              CustomButton(
+                onpressed: uploadpoem,
+                text: "Submit", 
+                loading: isloading
+              ),
+            ],
+          )
+        ),
+      ),
+    );
   }
 }
 
