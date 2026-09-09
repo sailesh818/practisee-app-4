@@ -33,11 +33,7 @@ class _MainNavigationbarPageState extends State<MainNavigationbarPage> {
         (route) => false,
       );
     }
-
-
-
   }
-
 
   void _onItemTapped(int index){
       setState(() {
@@ -121,8 +117,6 @@ class _MainNavigationbarPageState extends State<MainNavigationbarPage> {
               title: Text("Logout"),
               onTap: logout,
             )
-
-
           ],
         ),
       ),
@@ -135,23 +129,26 @@ class _MainNavigationbarPageState extends State<MainNavigationbarPage> {
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         items: [
+          
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
             label: "Practise",
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: "Read",
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.offline_pin),
             label: "Form",
           ),
-
 
         ]
       ),
